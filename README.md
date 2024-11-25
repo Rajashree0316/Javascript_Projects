@@ -14,3 +14,5 @@ Netlify Links for all projects:
 6) https://random-quote-javascript6.netlify.app/
 
 7) https://stopwatch-javascript7.netlify.app/
+
+8) https://tic-tac-toe-javascript8.netlify.app/
