@@ -18,3 +18,5 @@ Netlify Links for all projects:
 8) https://tic-tac-toe-javascript8.netlify.app/
 
 9) https://newsapp-javascript9.netlify.app/
+
+10) https://memory-game-javascript10.netlify.app/
