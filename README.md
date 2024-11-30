@@ -16,3 +16,5 @@ Netlify Links for all projects:
 7) https://stopwatch-javascript7.netlify.app/
 
 8) https://tic-tac-toe-javascript8.netlify.app/
+
+9) https://newsapp-javascript9.netlify.app/
