@@ -22,3 +22,5 @@ Netlify Links for all projects:
 10) https://memory-game-javascript10.netlify.app/
 
 11) https://rps-game-javascript11.netlify.app/
+
+12) https://bmi-calculator-javascript12.netlify.app/
