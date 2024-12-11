@@ -77,7 +77,24 @@ function declareWinner() {
     }
     resultDisplay.textContent = finalMessage;
     resultDisplay.classList.add("greenText");
+     // Restart the game after 3 seconds
+     setTimeout(restartGame, 3000);
   }
+ // 9)function for restarting the game after some interval
+
+  function restartGame() {
+    playerScore = 0;
+    computerScore = 0;
+    currentRound = 1;
+
+    // Reset displays
+    playerDisplay.textContent = "PLAYER:";
+    computerDisplay.textContent = "COMPUTER:";
+    resultDisplay.textContent = "";
+    playerScoreDisplay.textContent = "0";
+    computerScoreDisplay.textContent = "0";
+    roundDisplay.textContent = `Round: 1 of ${maxRounds}`;
+    resultDisplay.classList.remove("greenText", "redText");
 
 
 
