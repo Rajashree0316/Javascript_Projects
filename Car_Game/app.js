@@ -17,8 +17,9 @@ const keys = {
     ArrowRight: false,
 };
 
+// Player properties
 let player = {
-    speed: 5,
+    speed: 4,
     score: 0,
     highScore: 0,
     x: 0,
@@ -26,7 +27,20 @@ let player = {
     inPlay: false,
 };
 
-// Keyboard events for player controls
+// Adjust speed based on device type
+const adjustSpeed = () => {
+    if (window.innerWidth < 768) {
+        player.speed = 2; // Slower speed for mobile
+    } else {
+        player.speed = 4; // Default speed for larger screens
+    }
+};
+adjustSpeed();
+window.addEventListener('resize', adjustSpeed);
+// Mobile touch controls
+let touchStartX = 0;
+
+// Listen for keyboard controls
 window.addEventListener('keydown', (e) => {
     if (keys.hasOwnProperty(e.key)) keys[e.key] = true;
 });
@@ -34,11 +48,29 @@ window.addEventListener('keyup', (e) => {
     if (keys.hasOwnProperty(e.key)) keys[e.key] = false;
 });
 
+// Listen for touch controls
+window.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+});
+window.addEventListener('touchmove', (e) => {
+    if (!player.inPlay) return;
+
+    const touchEndX = e.touches[0].clientX;
+    const diffX = touchEndX - touchStartX;
+
+    if (diffX > 0 && player.x < gameArea.offsetWidth - 50) {
+        player.x += player.speed; // Move right
+    } else if (diffX < 0 && player.x > 0) {
+        player.x -= player.speed; // Move left
+    }
+    touchStartX = touchEndX;
+});
+
 // Start or Restart Game
 startScreen.addEventListener('click', startGame);
 
 function startGame() {
-    startSound.play();  // Play the start sound
+    startSound.play(); // Play the start sound
 
     startScreen.classList.add('hide'); // Hide the start/restart screen
     score.classList.remove('hide'); // Show the score display
@@ -107,6 +139,12 @@ function playGame() {
     if (keys.ArrowRight && player.x < gameArea.offsetWidth - car.offsetWidth) player.x += player.speed;
     car.style.left = `${player.x}px`;
 
+        // Vertical (forward) movement
+        if (player.y > 0) {
+            player.y -= player.forwardSpeed; // Move the car upwards (forward)
+        }
+        car.style.top = `${player.y}px`;
+    
     // Update the score (simulates forward motion)
     player.score++;
     score.innerText = `Score: ${player.score}`;
@@ -155,7 +193,7 @@ function isCollide(car, enemy) {
 }
 
 function endGame() {
-    endSound.play();  // Play the end sound
+    endSound.play(); // Play the end sound
     player.inPlay = false; // Stop the game
     startScreen.classList.remove('hide'); // Show restart screen
     startScreen.innerHTML = `<p>Game Over!</p><p>Click to Restart</p>`; // Update message
@@ -169,3 +207,4 @@ function endGame() {
     // Ensure restart works after a game over
     startScreen.addEventListener('click', startGame, { once: true });
 }
+
